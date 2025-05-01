@@ -1,0 +1,415 @@
+/* ==========================
+   Reset & Base
+   ========================== */
+   * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: whitesmoke;     /* antes: var(--color-bg) */
+    color: #FFFFFF;                      /* antes: var(--color-text) */
+  }
+  
+  /* ==========================
+     Header (SIN CAMBIOS)
+     ========================== */
+  .header {
+    text-align: left;
+    padding: 1rem 1rem;
+    background-color: black;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: transform 0.3s ease, padding 0.3s ease;
+  }
+  .header--hidden {
+    transform: translateY(-100%);
+  }
+  .contenedor-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  .logo-link { flex-shrink: 0; }
+  .logo {
+    width: 80px;
+    border: 2px solid #ccc;         /* antes: var(--color-gray) */
+    border-radius: 50%;
+    padding: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .texto-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #fffFFF;                     /* antes: #222 (aclarado inline) */
+    font-weight: 700;
+  }
+  .texto-header p {
+    margin: 0;
+    font-size: 1rem;
+    color: #fffFFF;                     /* antes: #555 (aclarado inline) */
+  }
+  
+  /* ==========================
+     Catálogo
+     ========================== */
+  .catalogo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 2rem;
+    padding: 2rem;
+  }
+  .catalogo h3 {
+    grid-column: 1 / -1;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #333;                     /* antes: var(--color-text) */
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 2px solid #ccc;   /* antes: var(--color-gray) */
+    padding-bottom: 0.5rem;
+    margin: 2rem 0 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+  .producto {
+    background: #fff;                /* antes: var(--color-white) */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    padding-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 0.3s ease, opacity 0.5s ease;
+    cursor: pointer;
+  }
+  .producto.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .producto img {
+    width: 100%;
+    object-fit: cover;
+  }
+  .producto h2 {
+    font-size: 1.25rem;
+    margin: 1rem 0 0.5rem;
+    color: #333;                     /* antes: var(--color-text) */
+  }
+  .producto p {
+    font-size: 1rem;
+    color: #777;                     /* antes: var(--color-text-light) */
+  }
+  
+  /* ==========================
+     Modal
+     ========================== */
+  .modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    overflow-y: auto;
+    z-index: 2000;
+  }
+  .modal.open { display: flex; }
+  
+  .modal-contenido {
+    background: #fff;                /* antes: var(--color-white) */
+    color: #333;                     /* antes: var(--color-text) */
+    padding: 1.5rem;
+    border-radius: 12px;
+    width: 95%;
+    max-width: 800px;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    position: relative;
+  }
+  .modal-izquierda,
+  .modal-derecha {
+    flex: 1;
+    min-width: 250px;
+  }
+  .modal-izquierda img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  .modal-derecha {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .modal-derecha h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .modal-derecha p {
+    margin-bottom: 1rem;
+    color: #777;                     /* antes: var(--color-text-light) */
+  }
+  .cerrar-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.7rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #999;
+  }
+  .cerrar-modal:hover {
+    color: #333;                     /* antes: var(--color-text) */
+  }
+  
+  /* Miniaturas y talles */
+  .modelos-miniaturas {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    margin-top: 1rem;
+  }
+  .modelos-miniaturas img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .modelos-miniaturas img:hover,
+  .thumbnail-seleccionada {
+    transform: scale(1.1);
+    border-color: #333;              /* antes: var(--color-text) */
+  }
+  
+  .bolitas-colores {
+    display: flex;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  .bolita-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s, border 0.2s;
+  }
+  .bolita-color:hover {
+    transform: scale(1.1);
+  }
+  .bolita-seleccionada {
+    border: 2px solid #333;         /* antes: var(--color-text) */
+  }
+  
+  .subtitulo-talles {
+    margin: 1.5rem 0 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;                     /* antes: var(--color-text) */
+  }
+  .talles-container {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .talle {
+    padding: 6px 12px;
+    border: 1px solid #ccc;          /* antes: var(--color-gray) */
+    border-radius: 4px;
+    background: #fff;                /* antes: var(--color-white) */
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .talle:hover,
+  .talle-seleccionado {
+    background: #333;                /* antes: var(--color-text) */
+    color: #fff;                     /* antes: var(--color-white) */
+    border-color: #333;              /* antes: var(--color-text) */
+  }
+  
+  /* ==========================
+     Footer & Contactos
+     ========================== */
+  .footer {
+    background: #fff;                /* antes: var(--color-white) */
+    padding: 2rem;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .footer p { color: #333; }         /* antes: var(--color-text) */
+  .icono-contacto {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s, filter 0.3s;
+  }
+  .icono-contacto:hover {
+    transform: scale(1.2);
+    filter: brightness(1.2);
+  }
+  #whatsapp-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    z-index: 1000;
+  }
+  #whatsapp-fixed img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s;
+  }
+  #whatsapp-fixed img:hover {
+    transform: scale(1.1);
+  }
+  
+  /* ==========================
+     Responsive
+     ========================== */
+  /* Móvil: hasta 600px */
+  @media (max-width: 600px) {
+    .header { padding: 0.75rem 1rem; }
+    .logo { width: 60px; }
+    .texto-header h1 { font-size: 1.5rem; }
+    .texto-header p  { font-size: 0.9rem; }
+  
+    .catalogo { padding: 1rem; gap: 1rem; }
+    .producto h2 { font-size: 1.1rem; }
+    .producto p  { font-size: 0.9rem; }
+  
+    /* Modal centrado y compacto */
+    .modal { padding: 0.5rem; }
+    .modal-contenido {
+      width: 90% !important;
+      max-width: 360px !important;
+      margin: auto !important;
+      padding: 1rem !important;
+      flex-direction: column !important;
+    }
+    .modal-izquierda,
+    .modal-derecha {
+      width: 100% !important;
+      padding: 0.5rem !important;
+    }
+    .modal-izquierda img {
+      width: 100% !important;
+      margin-bottom: 1rem;
+    }
+    .modelos-miniaturas img {
+      width: 40px;
+      height: 40px;
+    }
+    .cerrar-modal {
+      top: 10px !important;
+      right: 10px !important;
+      font-size: 1.5rem !important;
+    }
+  }
+  
+  /* Tablet: 601px–768px */
+  @media (min-width: 601px) and (max-width: 768px) {
+    .contenedor-header {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .logo { width: 60px; }
+    .texto-header h1,
+    .texto-header p { text-align: center; }
+  }
+  
+  /* Escritorio pequeño: 769px–1024px */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .catalogo {
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    }
+  }
+  
+  /* ——————————————————————————————
+     Menú hamburguesa
+     —————————————————————————————— */
+  /* Asegúrate de que el contenedor del header sea relativo */
+  .contenedor-header {
+    position: relative;
+  }
+  
+  /* Botón hamburguesa */
+  #btn-menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 1600;
+  }
+  #btn-menu span {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+    transition: none;
+  }
+  
+  /* Nav desplegable */
+  #nav-principal {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: none;
+    z-index: 1500;
+  }
+  #nav-principal.open {
+    max-height: 500px;
+    opacity: 1;
+  }
+  
+  /* Lista de enlaces */
+  #nav-principal ul {
+    list-style: none;
+    padding: 0.5rem 0;
+  }
+  #nav-principal li + li {
+    border-top: 1px solid #eee;
+  }
+  #nav-principal a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #333;
+    text-decoration: none;
+  }
+  #nav-principal a:hover {
+    background: #f5f5f5;
+  }
+  .out-of-stock {
+    opacity: 0.5;
+    pointer-events: none; /* evita que el usuario haga clic */
+  }
+  
+  .agotado {
+    color: red;
+    font-weight: bold;
+  }
